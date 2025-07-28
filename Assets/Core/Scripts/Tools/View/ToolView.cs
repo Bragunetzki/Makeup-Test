@@ -17,7 +17,7 @@ namespace Core.Scripts.Tools.View
         public event Action UserPointerDown;
         public event Action<List<ToolTargetView>> DroppedOnTargets;
 
-        private const float DRAG_VALUE = 0.2f;
+        private const float DRAG_SPEED = 10;
         private const string DEFAULT_ANIMATION_NAME = "Default";
         protected const float APPLY_ANIMATION_DURATION = 1.5f;
         protected const string APPLY_ANIMATION_NAME = "Apply";
@@ -32,7 +32,8 @@ namespace Core.Scripts.Tools.View
         protected RectTransform _transform;
         protected Tween _currentTween;
         protected bool _canBeDragged;
-
+        protected Vector3 _dragTarget;
+        
         public void Init()
         {
             _transform = GetComponent<RectTransform>();
@@ -41,6 +42,7 @@ namespace Core.Scripts.Tools.View
         public void PlayPickUpAnimation(Action onComplete)
         {
             _canBeDragged = false;
+            _dragTarget = _pickUpPosition.position;
             _currentTween?.Kill();
             _transform.SetAsLastSibling();
             _currentTween = _transform.DOMove(_pickUpPosition.position, PICK_UP_DURATION)
@@ -54,6 +56,7 @@ namespace Core.Scripts.Tools.View
         public void PlayApplyAnimation(ToolTargetView targetView, Action<ToolTargetView> onComplete)
         {
             _canBeDragged = false;
+            _dragTarget = targetView.ApplyPosition.position;
             _currentTween?.Kill();
             
             Sequence applySequence = DOTween.Sequence()
@@ -72,6 +75,7 @@ namespace Core.Scripts.Tools.View
             }
 
             _canBeDragged = false;
+            _dragTarget = _startPosition.position;
             _currentTween?.Kill();
             _currentTween = _transform.DOMove(_startPosition.position, PICK_UP_DURATION)
                 .OnComplete(() => onComplete?.Invoke());
@@ -93,6 +97,7 @@ namespace Core.Scripts.Tools.View
         public void Reset()
         {
             _currentTween?.Kill();
+            _dragTarget = _startPosition.position;
             _transform.position = _startPosition.position;
             _transform.rotation = _startPosition.rotation;
         }
@@ -115,7 +120,7 @@ namespace Core.Scripts.Tools.View
                     eventData.pressEventCamera,
                     out Vector3 globalMousePos))
             {
-                _transform.position = Vector3.Lerp(_transform.position, globalMousePos, DRAG_VALUE);
+                _dragTarget = globalMousePos;
             }
         }
 
@@ -144,6 +149,15 @@ namespace Core.Scripts.Tools.View
             if (_targetsBuffer.Count != 0)
             {
                 DroppedOnTargets?.Invoke(_targetsBuffer);
+            }
+        }
+
+        private void Update()
+        {
+            if (_canBeDragged)
+            {
+                float lerpFactor = 1f - Mathf.Exp(-DRAG_SPEED * Time.deltaTime);
+                _transform.position = Vector3.Lerp(_transform.position, _dragTarget, lerpFactor);
             }
         }
     }

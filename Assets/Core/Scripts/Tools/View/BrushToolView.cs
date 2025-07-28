@@ -23,6 +23,7 @@ namespace Core.Scripts.Tools.View
         public void PlayPickUpAnimation(BrushPaletteView paletteView, Action onComplete)
         {
             _canBeDragged = false;
+            _dragTarget = _pickUpPosition.position;
             _transform.SetAsLastSibling();
             _currentTween?.Kill();
             _currentTween = DOTween.Sequence()
