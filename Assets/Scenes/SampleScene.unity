@@ -4791,6 +4791,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cream
       objectReference: {fileID: 0}
+    - target: {fileID: 4578596564818475981, guid: 449e906aa0eb6b5478c75019e877b8d2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578596564818475981, guid: 449e906aa0eb6b5478c75019e877b8d2, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578596564818475981, guid: 449e906aa0eb6b5478c75019e877b8d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4578596564818475981, guid: 449e906aa0eb6b5478c75019e877b8d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8739138042411723638, guid: 449e906aa0eb6b5478c75019e877b8d2, type: 3}
       propertyPath: _startPosition
       value: 
