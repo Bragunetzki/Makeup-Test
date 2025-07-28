@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8717cc0a274408945bd8f5c3bd2583, type: 3}
+  m_Name: Character Config
+  m_EditorClassIdentifier: 
+  _eyeshadowConfig: {fileID: 11400000, guid: eb1e1378fd757be45a497b250ac39694, type: 2}
+  _lipstickConfig: {fileID: 11400000, guid: d93ffbb59bb43834597dc8ced8ceebba, type: 2}
+  _blushConfig: {fileID: 11400000, guid: 3062ce03054dc814699d22d6d328811b, type: 2}
+  _hasAcne: 1
